@@ -1,0 +1,219 @@
+/* Reset & Base Styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+/* Main Container */
+.restaurant-details-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Left Section */
+.restaurant-left {
+  flex: 3;
+  min-width: 300px;
+}
+
+.restaurant-left img {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.restaurant-left h2 {
+  font-size: 32px;
+  margin-bottom: 12px;
+  color: #222;
+}
+
+.restaurant-left p {
+  font-size: 16px;
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+/* Right Section */
+.restaurant-right {
+  flex: 2;
+  min-width: 300px;
+  background-color: #e0e0e0; /* Light grey background */
+  padding: 25px 20px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+}
+
+/* FIX: Prevent overflow of inner elements */
+.restaurant-right * {
+  box-sizing: border-box;
+}
+
+/* Deal Banner */
+.deal-btn {
+  background-color: #f50000;
+  color: white;
+  padding: 14px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+/* Labels & Inputs */
+label {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+select,
+input[type="date"],
+input[type="text"],
+input[type="email"] {
+  width: 100%;
+  padding: 12px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  background-color: #fff;
+}
+
+/* FIX: Prevent date input from going outside box */
+input[type="date"] {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Meal Type Tabs (Breakfast, Lunch, Dinner) */
+.meal-type-tabs {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  background-color: #e0e0e0;
+  padding: 0 10px;
+}
+
+.meal-type-tab {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 0;
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  color: #333;
+  transition: color 0.3s, border-color 0.3s;
+}
+
+.meal-type-tab.active {
+  color: #f50000;
+  border-color: #f50000;
+}
+
+/* Time Slot Buttons Section */
+.time-slot-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.time-slot-button {
+  padding: 12px 20px;
+  background-color: #d9d9d9;
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  color: #000;
+  transition: all 0.2s ease;
+}
+
+.time-slot-button:hover {
+  background-color: #c4c4c4;
+}
+
+.time-slot-button.active {
+  background-color: #f50000;
+  color: white;
+  font-weight: bold;
+  border: none;
+}
+
+/* Guest Count Buttons */
+.guest-count {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.guest-count button {
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #fff;
+  transition: 0.2s ease;
+}
+
+.guest-count button:hover {
+  background-color: #f0f0f0;
+}
+
+.guest-count span {
+  font-size: 16px;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* Confirm Button */
+.confirm-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #f50000;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.confirm-btn:hover {
+  background-color: #d40000;
+}
+
+/* Booking Form */
+
+/* FIX: No spacing unless booking form is visible */
+.booking-form {
+  margin-top: 0;
+}
+
+.booking-form.visible {
+  margin-top: 30px;
+}

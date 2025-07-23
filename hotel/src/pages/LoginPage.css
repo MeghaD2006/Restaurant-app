@@ -1,0 +1,93 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+  padding-top: 40px;
+}
+
+.login-heading {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.login-toggle {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.login-toggle button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #ddd;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.login-toggle button.active {
+  background-color: red;
+  color: white;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  padding: 25px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.login-input {
+  margin: 10px 0;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.login-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.login-button {
+  padding: 10px 25px;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: darkred;
+}
+
+.login-error {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.login-text {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.login-link {
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+}

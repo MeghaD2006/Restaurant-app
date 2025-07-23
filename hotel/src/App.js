@@ -4,6 +4,7 @@ import Navbar from "./Restaurant/Navbar";
 import RestaurantDetail from "./Restaurant/RestaurantDetail";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+import AdminPage from "./pages/AdminPage";
 import BookTablePage from "./Restaurant/BookTablePage";
 import Footer from "./pages/Footer";
 import HomePage from "./Restaurant/HomePage";
@@ -17,8 +18,10 @@ const App = () => {
         <Route path="/restaurant/:id" element={<RestaurantDetail />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
+         <Route path="/admin" element={<AdminPage />} />
         <Route path="/book-table/:city?" element={<BookTablePage />} />
-      </Routes>
+        
+        </Routes>
       <Footer />
     </Router>
   );

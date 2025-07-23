@@ -1,25 +1,49 @@
+// src/pages/SignUpPage.js
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "./SignUpPage.css";
+
 const SignUpPage = () => {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(""); 
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
-  const handleSignUp = (e) => {
+
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    alert("SignUp Succesfully");
-    navigate("/");
+    setError("");
+
+    try {
+      const res = await axios.post("http://localhost:5000/signup", {
+        name: name.trim(),
+        email: email.trim(),
+        password: password.trim(),
+      });
+
+      alert(res.data.message);
+      navigate("/login");
+    } catch (err) {
+      if (err.response && err.response.data?.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
+    }
   };
+
   return (
-    <div style={styles.container}>
+    <div className="signup-container">
       <h2>Sign Up</h2>
-      <form onSubmit={handleSignUp} style={styles.form}>
+      <form onSubmit={handleSignUp} className="signup-form">
         <input
           type="text"
           placeholder="Enter your name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          style={styles.input}
+          className="signup-input"
           required
         />
         <input
@@ -27,83 +51,32 @@ const SignUpPage = () => {
           placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          style={styles.input}
+          className="signup-input"
           required
         />
         <input
           type="password"
           placeholder="Enter your password"
           value={password}
-          onChange={(e) => setPassword(e.targetValue)}
-          style={styles.input}
+          onChange={(e) => setPassword(e.target.value)}
+          className="signup-input"
           required
         />
-        <div style={styles.buttonContainer}>
-          <button type="submit" style={styles.button}>
-            SignUp
+        {error && <p className="signup-error">{error}</p>}
+        <div className="signup-button-container">
+          <button type="submit" className="signup-button">
+            Sign Up
           </button>
         </div>
-
-        <p style={styles.text}>
-          You already have an account{" "}
-          <span style={styles.link} onClick={() => navigate("/login")}>
-            login
+        <p className="signup-text">
+          Already have an account?{" "}
+          <span className="signup-link" onClick={() => navigate("/login")}>
+            Login
           </span>
         </p>
       </form>
     </div>
   );
 };
-const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "100vh",
-    AlignItems: "center",
-  },
-  heading: {
-    margin: "0",
-    paddingBottom: "10px",
-    fontSize: "2rem",
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    width: "300px",
-    padding: "20px",
-    backgroundColor: "#f4f4f4",
-    borderRadius: "8px",
-    boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-  },
-  input: {
-    margin: "5px 0",
-    padding: "10px",
-    fontSize: "1rem",
-    borderRadius: "5px",
-  },
-  button: {
-    padding: "5px",
-    backgroundColor: "red",
-    color: "White",
-    border: "none",
-    cursor: "pointer",
-    borderRadius: "5px",
-    fontSize: "1rem",
-  },
-  buttonContainer: {
-    display: "flex",
-    marginTop: "10px",
-    justifyContent: "center",
-  },
-  text: {
-    marginTop: "10px",
-    textAlign: "center",
-  },
-  link: {
-    color: "blue",
-    cursor: "pointer",
-  },
-};
+
 export default SignUpPage;

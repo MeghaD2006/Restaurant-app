@@ -1,100 +1,129 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "./LoginPage.css";
+
+const ADMIN_EMAIL = "admin@example.com";
+const ADMIN_PASSWORD = "admin123";
+
 const LoginPage = () => {
+  const [loginType, setLoginType] = useState("user"); // "user" or "admin"
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const handleLogin = (e) => {
+
+  // When loginType changes:
+  useEffect(() => {
+    if (loginType === "admin") {
+      setEmail(ADMIN_EMAIL);
+      setPassword(""); // empty so user must type password
+      setError("");
+    } else {
+      setEmail("");
+      setPassword("");
+      setError("");
+    }
+  }, [loginType]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Login Succesfully");
-    navigate("/");
+    setError("");
+    setLoading(true);
+
+    if (loginType === "admin") {
+      // Check if email and password match exactly admin credentials
+      if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+        alert("Admin login successful!");
+        navigate("/admin");
+      } else {
+        setError("Invalid admin credentials");
+      }
+      setLoading(false);
+      return;
+    }
+
+    // User login
+    try {
+      const response = await fetch("http://localhost:5000/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim(), password: password.trim() }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("User login successful!");
+        navigate("/");
+      } else {
+        setError(data.message || "Login failed. Try again.");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("Server error. Try again later.");
+    } finally {
+      setLoading(false);
+    }
   };
+
   return (
-    <div style={styles.container}>
-      <h2 style={styles.heading}>Login</h2>
-      <form onSubmit={handleLogin} style={styles.form}>
+    <div className="login-container">
+      <h2 className="login-heading">Login</h2>
+
+      <div className="login-toggle">
+        <button
+          className={loginType === "user" ? "active" : ""}
+          onClick={() => setLoginType("user")}
+        >
+          User Login
+        </button>
+        <button
+          className={loginType === "admin" ? "active" : ""}
+          onClick={() => setLoginType("admin")}
+        >
+          Admin Login
+        </button>
+      </div>
+
+      <form onSubmit={handleSubmit} className="login-form">
         <input
           type="email"
           placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          style={styles.input}
+          className="login-input"
           required
+          readOnly={loginType === "admin"} // prevent changing admin email
         />
         <input
           type="password"
-          placeholder="Enter your password"
+          placeholder={
+            loginType === "admin" ? "Enter admin password" : "Enter your password"
+          }
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          style={styles.input}
+          className="login-input"
           required
+          autoComplete="off"
         />
-        <div style={styles.buttonContainer}>
-          <button type="submit" style={styles.button}>
-            Login
+        {error && <p className="login-error">{error}</p>}
+        <div className="login-button-container">
+          <button type="submit" className="login-button" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
           </button>
         </div>
-
-        <p style={styles.text}>
-          Don't have an account?{" "}
-          <span style={styles.link} onClick={() => navigate("/signup")}>
-            Sign Up
-          </span>
-        </p>
+        {loginType === "user" && (
+          <p className="login-text">
+            Don't have an account?{" "}
+            <span className="login-link" onClick={() => navigate("/signup")}>
+              Sign Up
+            </span>
+          </p>
+        )}
       </form>
     </div>
   );
 };
-const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "100vh",
-    AlignItems: "center",
-  },
-  heading: {
-    margin: "0",
-    paddingBottom: "10px",
-    fontSize: "2rem",
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    width: "300px",
-    padding: "20px",
-    backgroundColor: "#f4f4f4",
-    borderRadius: "8px",
-    boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-  },
-  input: {
-    margin: "5px 0",
-    padding: "10px",
-    fontSize: "1rem",
-    borderRadius: "5px",
-  },
-  button: {
-    padding: "5px 20px",
-    backgroundColor: "red",
-    color: "White",
-    border: "none",
-    cursor: "pointer",
-    borderRadius: "5px",
-    fontSize: "1rem",
-  },
-  buttonContainer: {
-    display: "flex",
-    justifyContent: "center",
-    marginTop: "10px",
-  },
-  text: {
-    marginTop: "10px",
-    textAlign: "center",
-  },
-  link: {
-    color: "blue",
-    cursor: "pointer",
-  },
-};
+
 export default LoginPage;
