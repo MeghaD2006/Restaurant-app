@@ -6,18 +6,18 @@ const ADMIN_EMAIL = "admin@example.com";
 const ADMIN_PASSWORD = "admin123";
 
 const LoginPage = () => {
-  const [loginType, setLoginType] = useState("user"); // "user" or "admin"
+  const [loginType, setLoginType] = useState("user"); 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // When loginType changes:
+  
   useEffect(() => {
     if (loginType === "admin") {
       setEmail(ADMIN_EMAIL);
-      setPassword(""); // empty so user must type password
+      setPassword(""); 
       setError("");
     } else {
       setEmail("");
@@ -32,7 +32,7 @@ const LoginPage = () => {
     setLoading(true);
 
     if (loginType === "admin") {
-      // Check if email and password match exactly admin credentials
+      
       if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
         alert("Admin login successful!");
         navigate("/admin");
@@ -43,7 +43,7 @@ const LoginPage = () => {
       return;
     }
 
-    // User login
+
     try {
       const response = await fetch("http://localhost:5000/login", {
         method: "POST",
@@ -94,7 +94,7 @@ const LoginPage = () => {
           onChange={(e) => setEmail(e.target.value)}
           className="login-input"
           required
-          readOnly={loginType === "admin"} // prevent changing admin email
+          readOnly={loginType === "admin"} 
         />
         <input
           type="password"

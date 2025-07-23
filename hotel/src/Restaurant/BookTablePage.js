@@ -36,7 +36,7 @@ const BookTablePage = () => {
 
   return (
     <div style={{ display: "flex", padding: "1rem" }}>
-      {/* Filter Sidebar */}
+     
       <div style={{ width: "250px", marginRight: "2rem" }}>
         <h3>Filters</h3>
         <ul style={{ listStyle: "none", padding: 0 }}>
@@ -77,7 +77,6 @@ const BookTablePage = () => {
         </ul>
       </div>
 
-      {/* Restaurants List */}
       <div style={{ flex: 1 }}>
         <h2>Restaurants {city ? `in ${city}` : "All Locations"}</h2>
         {filteredRestaurants.length > 0 ? (
