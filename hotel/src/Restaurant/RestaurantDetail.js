@@ -29,7 +29,7 @@ const RestaurantDetails = () => {
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/restaurants/${id}`).then((res) => {
+    axios.get(`https://restaurant-app-1uo3.onrender.com/restaurants/${id}`).then((res) => {
       setRestaurant(res.data);
     });
   }, [id]);
@@ -93,7 +93,7 @@ const RestaurantDetails = () => {
       };
 
       try {
-        await axios.post("http://localhost:5000/bookings", bookingData);
+        await axios.post("https://restaurant-app-1uo3.onrender.com/bookings", bookingData);
 
         Swal.fire({
           icon: "success",
