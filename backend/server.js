@@ -28,7 +28,6 @@ mongoose.connect(process.env.MONGO_URI, {
   })
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-// Auto-create default admin if not exists
 const createAdminIfNotExists = async () => {
   const adminEmail = "admin@example.com";
   const adminPassword = "admin123";
@@ -50,7 +49,7 @@ const createAdminIfNotExists = async () => {
   }
 };
 
-// Signup Route
+
 app.post("/signup", async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password)
@@ -90,7 +89,7 @@ app.post("/login", async (req, res) => {
 // Mount Routes
 app.use("/restaurants", restaurantRoutes);
 app.use("/bookings", bookingRoutes);
-app.use("/bookings", bookingRoutes);
+
 
 
 // Default route
