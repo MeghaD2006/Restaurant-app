@@ -10,7 +10,7 @@ const BookTablePage = () => {
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/restaurants");
+        const res = await axios.get("https://restaurant-app-1uo3.onrender.com/restaurants");
         setRestaurants(res.data);
       } catch (error) {
         console.error("Error fetching restaurants:", error.message);
